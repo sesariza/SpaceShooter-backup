@@ -10,7 +10,7 @@ public class Boundary
 
 namespace Photon.Pun.Demo.PunBasics
 {
-    public class Ships : MonoBehaviourPunCallbacks
+    public class Ships : MonoBehaviourPunCallbacks, IPunObservable
     {
         public float speed;
         public float tilt;
@@ -20,17 +20,43 @@ namespace Photon.Pun.Demo.PunBasics
         public float fireRate;
 
         private float nextFire;
+        bool Firing;
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                // We own this player: send the others our data
+                if (Firing)
+                {
+                    stream.SendNext(Firing);
+                    Firing = false;
+                }
+            }
+            else
+            {
+                // Network player, receive data
+                Firing = (bool)stream.ReceiveNext();
+                if (Firing)
+                {
+                    Instantiate(shot, shotSpawn.position, Quaternion.Euler(0, 0, 0));
+                }
+            }
+        }
 
         void Update()
         {
-            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
-            {
-                return;
-            }
+            
+             if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+             {
+                 return;
+             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+            //if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+            if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
+                Firing = true;
                 Instantiate(shot, shotSpawn.position, Quaternion.Euler(0, 0, 0));
             }
         }
