@@ -1,13 +1,3 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Launcher.cs" company="Exit Games GmbH">
-//   Part of: Photon Unity Networking Demos
-// </copyright>
-// <summary>
-//  Used in "PUN Basic tutorial" to handle typical game management requirements
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,8 +10,7 @@ namespace Photon.Pun.Demo.PunBasics
 	/// <summary>
 	/// Game manager.
 	/// Connects and watch Photon Status, Instantiate Player
-	/// Deals with quiting the room and the game
-	/// Deals with level loading (outside the in room synchronization)
+	/// Deals with quiting the room and the 
 	/// </summary>
 	public class NetworkManager : MonoBehaviourPunCallbacks
 	{
@@ -54,20 +43,17 @@ namespace Photon.Pun.Demo.PunBasics
 			// in case we started this demo with the wrong scene being active, simply load the menu scene
 			if (!PhotonNetwork.IsConnected)
 			{
-				SceneManager.LoadScene("PunBasics-Launcher");
+				SceneManager.LoadScene("SSLauncher");
 
 				return;
 			}
 
 			if (playerPrefab == null)
-			{ // #Tip Never assume public properties of Components are filled up properly, always check and inform the developer of it.
-
+			{ 
 				Debug.LogError("<Color=Red><b>Missing</b></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
 			}
 			else
 			{
-
-
 				if (PlayerManager.LocalPlayerInstance == null)
 				{
 					Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
@@ -77,7 +63,6 @@ namespace Photon.Pun.Demo.PunBasics
 				}
 				else
 				{
-
 					Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
 				}
 
@@ -91,7 +76,6 @@ namespace Photon.Pun.Demo.PunBasics
 		/// </summary>
 		void Update()
 		{
-			// "back" button of phone equals "Escape". quit app if that's pressed
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				QuitApplication();

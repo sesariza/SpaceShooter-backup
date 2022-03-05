@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/03 Spaceshooter/Scenes/SSLauncher.unity
+    guid: 866c93b2e4bef4658a4e507a6fafa2f0
+  - enabled: 1
+    path: Assets/03 Spaceshooter/Scenes/SSMain.unity
+    guid: c4a668909b40e4a74a42bdf1723071f7
   m_configObjects: {}
