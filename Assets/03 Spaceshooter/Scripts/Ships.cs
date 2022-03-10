@@ -27,17 +27,13 @@ namespace Photon.Pun.Demo.PunBasics
             if (stream.IsWriting)
             {
                 // We own this player: send the others our data
-                if (Firing)
-                {
-                    stream.SendNext(Firing);
-                    Firing = false;
-                }
+                stream.SendNext(Firing);
+                Firing = false;
             }
             else
             {
                 // Network player, receive data
-                Firing = (bool)stream.ReceiveNext();
-                if (Firing)
+                if ((bool)stream.ReceiveNext())
                 {
                     Instantiate(shot, shotSpawn.position, Quaternion.Euler(0, 0, 0));
                 }
@@ -52,7 +48,6 @@ namespace Photon.Pun.Demo.PunBasics
                  return;
              }
 
-            //if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
             if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;

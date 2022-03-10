@@ -28,11 +28,14 @@ public class Asteroid : MonoBehaviour
 
         if (other.tag == "Player")
         {
-            Debug.Log("GAMEOVER");
             gameController.GameOver();
+        }
+        else
+        {
+            Destroy(gameObject,1); //Destroy Asteroid
         }
        
         Destroy(other.gameObject);
-        Destroy(gameObject);
+
     }
 }
