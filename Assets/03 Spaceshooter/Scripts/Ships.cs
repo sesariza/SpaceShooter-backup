@@ -35,7 +35,7 @@ namespace Photon.Pun.Demo.PunBasics
                 // Network player, receive data
                 if ((bool)stream.ReceiveNext())
                 {
-                    Instantiate(shot, shotSpawn.position, Quaternion.Euler(0, 0, 0));
+                    Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 nextFire = Time.time + fireRate;
                 Firing = true;
-                Instantiate(shot, shotSpawn.position, Quaternion.Euler(0, 0, 0));
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
             }
         }
 
