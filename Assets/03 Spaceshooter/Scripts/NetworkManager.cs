@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 namespace Photon.Pun.Demo.PunBasics
 {
@@ -11,8 +12,13 @@ namespace Photon.Pun.Demo.PunBasics
 		public GameObject playerPrefab;
 		public GameObject musuhPrefab;
 
+		public Text scoreText;
+		public Text gameoverText;
+		private int Score;
+
 		void Start()
 		{
+			Score = 0;
 			Instance = this;
 
 			if (!PhotonNetwork.IsConnected)
@@ -48,6 +54,22 @@ namespace Photon.Pun.Demo.PunBasics
 			{
 				Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
 			}
+		}
+
+		public void addScore()
+		{
+			Score++;
+			UpdateScore(Score);
+		}
+
+		private void UpdateScore(int newScore)
+		{
+			scoreText.text = "SCORE: " + newScore;
+		}
+
+		public void GameOver()
+		{
+			gameoverText.text = "GAMEOVER\n" + Score;
 		}
 	}
 }

@@ -20,7 +20,14 @@ namespace Photon.Pun.Demo.PunBasics
         public float fireRate;
 
         private float nextFire;
-        bool Firing;
+        int Firing;
+        int GetFiring;
+        private NetworkManager gameController;
+
+        void Start()
+        {
+            gameController = GameObject.Find("GameController").GetComponent<NetworkManager>();
+        }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
@@ -28,21 +35,32 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 // We own this player: send the others our data
                 stream.SendNext(Firing);
-                Firing = false;
+                Firing = 0;
             }
             else
             {
                 // Network player, receive data
-                if ((bool)stream.ReceiveNext())
+                GetFiring = (int)stream.ReceiveNext();
+
+                Debug.Log(GetFiring);
+
+                if (GetFiring == 1)
                 {
                     Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 }
+
+                if (GetFiring == 2)
+                {
+                    Destroy(gameObject);
+                    gameController.GameOver();
+                }
+
+                GetFiring = 0;
             }
         }
 
         void Update()
         {
-            
              if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
              {
                  return;
@@ -51,8 +69,22 @@ namespace Photon.Pun.Demo.PunBasics
             if (photonView.IsMine && Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
-                Firing = true;
+                Firing = 1;
                 Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            }
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            {
+                return;
+            }
+            if (other.gameObject.name == "Shoot(Clone)")
+            {
+                Firing = 2;
+                gameController.GameOver();
+                Destroy(gameObject,0.5f);
             }
         }
 

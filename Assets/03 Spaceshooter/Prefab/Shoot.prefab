@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 876452652625776477}
   - component: {fileID: 876452652625776478}
   - component: {fileID: 9146837544613549087}
-  - component: {fileID: -8451161836528629628}
   m_Layer: 0
   m_Name: Shoot
   m_TagString: Untagged
@@ -175,21 +174,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-8451161836528629628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 876452652625776448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8449e15e065424c9bb29cc638bfd2b5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tumble: 0
-  explosion: {fileID: 7798597688855864181, guid: 20c42e5b68e1a423dbba9a07d28a1741, type: 3}
-  playerExplosion: {fileID: 7798597688855864181, guid: 20c42e5b68e1a423dbba9a07d28a1741, type: 3}
 --- !u!1 &3287707038387972631
 GameObject:
   m_ObjectHideFlags: 0
