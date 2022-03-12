@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641508, b: 0.57481736, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641454, b: 0.5748162, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -891,7 +891,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1855759946}
-  - component: {fileID: 1855759945}
   - component: {fileID: 1855759947}
   m_Layer: 0
   m_Name: GameController
@@ -900,26 +899,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1855759945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1855759944}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ce79c4573de543d1a3b151e2dc9f6b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hazard: {fileID: 721765116077553356, guid: 6d943aacd19ab4018a84a48d4fbaf1c1, type: 3}
-  spawnValues: {x: 3, y: 0, z: 10}
-  hazardCount: 5
-  spawnWait: 1
-  startWait: 2
-  waveWait: 1
-  scoreText: {fileID: 265216141}
-  gameoverText: {fileID: 495218386}
 --- !u!4 &1855759946
 Transform:
   m_ObjectHideFlags: 0
@@ -946,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a025fe9ad20eb4aec91948b8a3269b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5170432239399885412, guid: e984fa42c83cb414483e5e44c4437593, type: 3}
+  playerPrefab: {fileID: 5170432239399885412, guid: 26e283af2bc7a4e3683ae0c225a30410, type: 3}
   musuhPrefab: {fileID: 5170432239399885412, guid: b1fbbdfdc8bb74ce39cccf3ed798ad5f, type: 3}
   scoreText: {fileID: 265216141}
   gameoverText: {fileID: 495218386}

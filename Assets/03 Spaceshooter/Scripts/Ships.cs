@@ -42,8 +42,6 @@ namespace Photon.Pun.Demo.PunBasics
                 // Network player, receive data
                 GetFiring = (int)stream.ReceiveNext();
 
-                Debug.Log(GetFiring);
-
                 if (GetFiring == 1)
                 {
                     Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
