@@ -1382,6 +1382,7 @@ MonoBehaviour:
   shot: {fileID: 876452652625776448, guid: 55d7c63cff2cd442f80bfc8ae6317d2c, type: 3}
   shotSpawn: {fileID: 1851290163895793078}
   fireRate: 0.2
+  explosion: {fileID: 7798597688855864181, guid: 20c42e5b68e1a423dbba9a07d28a1741, type: 3}
 --- !u!114 &-2614553674921187745
 MonoBehaviour:
   m_ObjectHideFlags: 0

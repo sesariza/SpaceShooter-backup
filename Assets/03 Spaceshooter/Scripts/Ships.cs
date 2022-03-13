@@ -18,6 +18,7 @@ namespace Photon.Pun.Demo.PunBasics
         public GameObject shot;
         public Transform shotSpawn;
         public float fireRate;
+        public GameObject explosion;
 
         private float nextFire;
         int Firing;
@@ -42,17 +43,17 @@ namespace Photon.Pun.Demo.PunBasics
                 // Network player, receive data
                 GetFiring = (int)stream.ReceiveNext();
 
-                if (GetFiring == 1)
+                if (GetFiring > 0) Debug.Log(GetFiring);
+
+                if (GetFiring == 1)//Shoot
                 {
                     Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
                 }
 
-                if (GetFiring == 2)
+                if (GetFiring == 2)//Meledak
                 {
-                    Destroy(gameObject);
-                    gameController.GameOver();
+                    Explode();
                 }
-
                 GetFiring = 0;
             }
         }
@@ -78,11 +79,11 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 return;
             }
-            if (other.gameObject.name == "Shoot(Clone)")
+            if (photonView.IsMine && other.gameObject.name == "Shoot(Clone)")
             {
                 Firing = 2;
-                gameController.GameOver();
-                Destroy(gameObject,0.5f);
+                gameController.Minedeath = true;
+                Explode();
             }
         }
 
@@ -107,6 +108,17 @@ namespace Photon.Pun.Demo.PunBasics
             );
 
             GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f, 0.0f, GetComponent<Rigidbody>().velocity.x * -tilt);
+        }
+
+        void Explode()
+        {
+            if (!gameController.death)
+            {
+                gameController.death = true;
+                gameController.GameOver();
+                Destroy(gameObject, 0.1f);
+                Instantiate(explosion, transform.position, transform.rotation);
+            }
         }
     }
 }

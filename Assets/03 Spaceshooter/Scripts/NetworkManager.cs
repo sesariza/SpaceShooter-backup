@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace Photon.Pun.Demo.PunBasics
 {
-
 	public class NetworkManager : MonoBehaviourPunCallbacks
 	{
 		static public NetworkManager Instance;
@@ -15,6 +15,8 @@ namespace Photon.Pun.Demo.PunBasics
 		public Text scoreText;
 		public Text gameoverText;
 		private int Score;
+		public bool death;
+		public bool Minedeath;
 
 		void Start()
 		{
@@ -35,14 +37,7 @@ namespace Photon.Pun.Demo.PunBasics
 			}
 			else
 			{
-				if (PhotonNetwork.IsMasterClient)
-				{
-					PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.Euler(0f,0f,0f), 0);
-                }
-                else
-                {
-					PhotonNetwork.Instantiate(this.musuhPrefab.name, new Vector3(0f, 5f, 5f), Quaternion.Euler(0f,0f,0f), 0);
-				}
+				Respawn();
 			}
 		}
 
@@ -69,7 +64,37 @@ namespace Photon.Pun.Demo.PunBasics
 
 		public void GameOver()
 		{
-			gameoverText.text = "GAMEOVER\n" + Score;
+			if (death)
+			{
+				Debug.Log("Game Over");
+				gameoverText.text = "GAMEOVER\n";
+				StartCoroutine(StartOver());
+			}
+		}
+
+		public void Respawn()
+        {
+			if (PhotonNetwork.IsMasterClient)
+			{
+				Debug.Log("Spawn Master");
+				PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.Euler(0f, 0f, 0f), 0);
+			}
+			else
+			{
+				Debug.Log("Spawn Enemy");
+				PhotonNetwork.Instantiate(this.musuhPrefab.name, new Vector3(0f, 5f, 5f), Quaternion.Euler(0f, 0f, 0f), 0);
+			}
+
+		}
+
+		private IEnumerator StartOver()
+		{	
+			yield return new WaitForSeconds(5);
+
+			if (Minedeath) Respawn();
+			gameoverText.text = "";
+			death = false;
+			Minedeath = false;
 		}
 	}
 }
